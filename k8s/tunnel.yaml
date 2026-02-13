@@ -27,5 +27,7 @@ spec:
         image: cloudflare/cloudflared:latest
         args:
         - tunnel
+        - --protocol
+        - http2
         - --url
         - http://localhost:80
