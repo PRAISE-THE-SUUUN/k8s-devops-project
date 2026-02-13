@@ -7,6 +7,7 @@ metadata:
     app: cloudflared
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: cloudflared
@@ -15,7 +16,8 @@ spec:
       labels:
         app: cloudflared
     spec:
-      dnsPolicy: "None"
+      hostNetwork: true
+      dnsPolicy: "ClusterFirstWithHostNet"
       dnsConfig:
         nameservers:
           - 1.1.1.1
@@ -26,4 +28,4 @@ spec:
         args:
         - tunnel
         - --url
-        - http://my-app-service:80
+        - http://localhost:80
