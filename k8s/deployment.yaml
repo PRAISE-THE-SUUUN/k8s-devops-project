@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: web
-        image: praisethesuuun/k8s-devops-project:latest
+        image: praisethesuuun/k8s-devops-project:758fbf8a74d9e59195382c117fcd6ded07b6f5d8
         ports:
         - containerPort: 80
