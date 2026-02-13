@@ -28,3 +28,20 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/k8s-devops-project:latest
             ${{ secrets.DOCKER_USERNAME }}/k8s-devops-project:${{ github.sha }}
+ 
+      - name: Update Kubernetes manifest
+        run: |
+          sed -i 's|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/k8s-devops-project:${{ github.sha }}|' k8s/deployment.yaml
+
+          cat k8s/deployment.yaml
+  
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          git add k8s/deployment.yaml
+
+          git commit -m "Update deployment image to version ${{ github.sha }}" || echo "No changes to commit"
+
+          git push
